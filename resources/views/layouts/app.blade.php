@@ -33,4 +33,13 @@
 
 
     </body>
+<script>
+    $(document).ready(function() {    
+        $("#newcat").click(function(){
+            $("#newCategory").slideToggle(400);
+            $("#newcat").toggleClass("border-gray-600");
+            $("#newcat").toggleClass("bg-gray-200");
+        });
+    });
+</script>
 </html>

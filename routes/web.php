@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\categoryController;
 use App\Http\Controllers\myprofileController;
 use Illuminate\Support\Facades\Route;
 
@@ -24,8 +25,16 @@ Route::get('/dashboard', function () {
 
 require __DIR__.'/auth.php';
 
-Route::middleware(['auth'])->group(function(){
-    Route::get('/profile', [myprofileController::class, 'index'])->name('profile');
+Route::prefix('profile')->middleware(['auth'])->group(function(){
+    Route::patch('/update-username/{user}', [myprofileController::class, 'changeUsername']);
+    Route::patch('/update-password/{user}', [myprofileController::class, 'changePassword']);
+    Route::patch('/update-email/{user}', [myprofileController::class, 'changeEmail']);
+    Route::get('/', [myprofileController::class, 'index'])->name('profile');
+});
+
+Route::prefix('category')->middleware(['auth'])->group(function(){
+    Route::delete('/delete/{category:id}', [categoryController::class, 'delete']);
+    Route::post('/new/{user}', [categoryController::class, 'create']);
 });
 
 
